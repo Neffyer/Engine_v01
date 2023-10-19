@@ -6,9 +6,9 @@
 #include "Globals.h"
 #include <vector>
 
-#include "imGui/imgui.h"
-#include "imGui/imgui_impl_sdl2.h"
-#include "imGui/imgui_impl_opengl3.h"
+#include "..\Source\Externals\imGui\imgui.h"
+#include "..\Source\Externals\imGui\backends\imgui_impl_sdl2.h"
+#include "..\Source\Externals\imGui\backends\imgui_impl_opengl3.h"
 
 class ModuleEditor : public Module
 {

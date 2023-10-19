@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include "Application.h"
 #include "Globals.h"
+#include "ModuleInput.h"
 
-#include "SDL/include/SDL.h"
-#pragma comment( lib, "SDL/libx86/SDL2.lib" )
-#pragma comment( lib, "SDL/libx86/SDL2main.lib" )
+#include "..\Source\Externals\SDL\include\SDL.h"
+#pragma comment( lib, "Game/Source/Externals/SDL/libx86/SDL2.lib" )
+#pragma comment( lib, "Game/Source/Externals/SDL/libx86/SDL2main.lib" )
 
 enum main_states
 {
@@ -53,6 +54,11 @@ int main(int argc, char ** argv)
 		case MAIN_UPDATE:
 		{
 			int update_return = App->Update();
+
+			if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_UP || App->input->quit)
+			{
+				state = MAIN_FINISH;
+			}
 
 			if (update_return == UPDATE_ERROR)
 			{

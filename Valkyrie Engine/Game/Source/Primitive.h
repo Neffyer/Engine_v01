@@ -1,9 +1,9 @@
 
 #pragma once
 #include "Color.h"
-#include "MathGeoLib/include/Math/float4x4.h"
-#include "MathGeoLib/include/Math/float3.h"
-#include "MathGeoLib/include/Math/TransformOps.h"
+#include "..\Source\Externals\MathGeoLib/include/Math/float4x4.h"
+#include "..\Source\Externals\MathGeoLib/include/Math/float3.h"
+#include "..\Source\Externals\MathGeoLib/include/Math/TransformOps.h"
 
 enum PrimitiveTypes
 {

@@ -2,18 +2,20 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleEditor.h"
-#include "SDL\include\SDL_opengl.h"
+#include "ModuleWindow.h"
+#include "ModuleCamera3D.h"
+#include "Externals/SDL/include/SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
-#pragma comment (lib, "Glew/libx86/glew32.lib")
+#pragma comment (lib, "Game/Source/Externals/Glew/libx86/glew32.lib")
 
 #ifdef _DEBUG
-#pragma comment (lib, "MathGeoLib/libx86/MatGeoLibDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "Game/Source/Externals/MathGeoLib/libx86/MatGeoLibDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #else
-#pragma comment (lib, "MathGeoLib/libx86/MatGeoLibRelease/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
+#pragma comment (lib, "Game/Source/Externals/MathGeoLib/libx86/MatGeoLibRelease/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
 
 
