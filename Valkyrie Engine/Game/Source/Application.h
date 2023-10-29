@@ -37,6 +37,10 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float framesPerSecond();
+	float deltaTime();
+	float miliSeconds();
+
 private:
 
 	void AddModule(Module* mod);

@@ -1,4 +1,4 @@
-#pragma once
+#pragma onceHistorgam
 #include "Module.h"
 #include "Globals.h"
 #include "Light.h"

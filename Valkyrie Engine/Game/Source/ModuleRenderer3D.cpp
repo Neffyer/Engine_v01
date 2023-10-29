@@ -12,6 +12,10 @@
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Game/Source/Externals/Glew/libx86/glew32.lib")
 
+#include "Externals\ImGui\imgui.h"
+#include "Externals\ImGui\backends\imgui_impl_sdl2.h"
+#include "Externals\ImGui/backends\imgui_impl_opengl3.h"
+
 #ifdef _DEBUG
 #pragma comment (lib, "Game/Source/Externals/MathGeoLib/libx86/MatGeoLibDebug/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #else
@@ -137,6 +141,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	Grid.Render();
+	App->editor->Draw();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }

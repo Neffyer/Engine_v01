@@ -6,9 +6,11 @@
 #include "Globals.h"
 #include <vector>
 
-#include "..\Source\Externals\imGui\imgui.h"
-#include "..\Source\Externals\imGui\backends\imgui_impl_sdl2.h"
-#include "..\Source\Externals\imGui\backends\imgui_impl_opengl3.h"
+#include "Externals\imGui\imgui.h"
+#include "Externals\imGui\backends\imgui_impl_sdl2.h"
+#include "Externals\imGui\backends\imgui_impl_opengl3.h"
+#include "Externals/Glew/include/glew.h"
+#include "Externals/SDL/include/SDL_opengl.h"
 
 class ModuleEditor : public Module
 {
@@ -21,13 +23,30 @@ public:
 	void Draw();
 	bool CleanUp() override;
 
-	void AddFPS(float aFPS);
+	std::vector<float> aFPSLog;
+	float aFPS;
 
-	std::vector<float> mFPSLog;
+	void updateFPS(const float aFPS);
+
+	std::vector<float> aDtLog;
+	float aDt;
+	void updateDT(const float aDt);
+
+	bool UpdateAditionalWindows = false;
+	
+	void menuBar();
+
+	void settings();
+
+	void console();
 
 private:
-	const char* lastValue = "";
 
+	bool settingsWindow = false;
+
+	int Height = 720, Width = 1080;
+	bool fullscreen = false;
+	bool borderless = false;
 };
 
 #endif // !_Module_Editor_

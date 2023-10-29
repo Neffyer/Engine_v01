@@ -110,3 +110,15 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+float Application::framesPerSecond() {
+	return 1 / dt;
+}
+
+float Application::deltaTime() {
+	return dt;
+}
+
+float Application::miliSeconds() {
+	return dt * 1000;
+}
