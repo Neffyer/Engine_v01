@@ -52,7 +52,7 @@ void ModuleEditor::Draw()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    //-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
 
     aFPS = App->framesPerSecond();
     updateFPS(aFPS);
@@ -68,7 +68,15 @@ void ModuleEditor::Draw()
         settings();
     }
 
-    //-----------------------------------------------------------------------------------------------------------
+    if (consoleWindow) {
+        console();
+    }
+
+    if (aboutWindow) {
+        about();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
 
     ImGui::Render();
     ImGui::EndFrame();
@@ -107,26 +115,32 @@ void ModuleEditor::menuBar() {
         }
         if (ImGui::BeginMenu("Edit"))
         {
+            //if (ImGui::MenuItem("Name")) { /* Do stuff */ }
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Window"))
+        {
             if (ImGui::MenuItem("Settings"))
             {
                 settingsWindow = true;
             }
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("About"))
-        {
-            if (ImGui::MenuItem("Github"))
+            if (ImGui::MenuItem("Console"))
             {
-                ShellExecute(NULL, "open", "https://github.com/Neffyer/Valkyrie_Engine", 0, 0, SW_SHOWNORMAL);
+                consoleWindow = true;
             }
-            ImGui::EndMenu();   
+            if (ImGui::MenuItem("About"))
+            {
+                aboutWindow = true;
+            }
+            ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
 }
 
-void ModuleEditor::settings() {
-    
+void ModuleEditor::settings()
+{
     ImGui::Begin("Settings", &settingsWindow, ImGuiWindowFlags_MenuBar);
     {
         ImGui::PlotHistogram("FPS", &aFPSLog[0], aFPSLog.size(), 0, "", 0, 240, ImVec2(200, 30));
@@ -150,8 +164,38 @@ void ModuleEditor::settings() {
     }
 }
 
-void ModuleEditor::console() {
-    
+void ModuleEditor::console() 
+{
+    ImGui::Begin("Console", &consoleWindow, ImGuiWindowFlags_MenuBar);
+    {
+        for (int i = 0; i < logConsole.size(); i++)
+        {
+            ImGui::Text(logConsole[i].c_str());
+        }
+    }
+    ImGui::End();
+}
+
+void ModuleEditor::about()
+{
+    ImGui::Begin("About", &aboutWindow, ImGuiWindowFlags_MenuBar);
+    {
+        if (ImGui::CollapsingHeader("License"))
+        {
+            ImGui::SeparatorText("ABOUT VALKYRIE ENGINE:");
+            ImGui::Text("Valkyrie Engine v.0.1");
+            ImGui::Text("By Joel Maldonado Salvador");
+
+            ImGui::NewLine();
+            ImGui::SeparatorText("ABOUT ME:");
+
+            if (ImGui::MenuItem("Press here to visit our repository"))
+            {
+                ShellExecute(NULL, "open", "https://github.com/Neffyer/Valkyrie_Engine", 0, 0, SW_SHOWNORMAL);
+            }
+        }         
+        ImGui::End();
+    }
 }
 
 void ModuleEditor::updateFPS(const float aFPS)

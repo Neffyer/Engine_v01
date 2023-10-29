@@ -5,6 +5,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include <string>
 
 #include "Externals\imGui\imgui.h"
 #include "Externals\imGui\backends\imgui_impl_sdl2.h"
@@ -28,7 +29,7 @@ public:
 
 	void updateFPS(const float aFPS);
 
-	std::vector<float> aDtLog;
+	std::vector <float> aDtLog;
 	float aDt;
 	void updateDT(const float aDt);
 
@@ -38,13 +39,19 @@ public:
 
 	void settings();
 
+	std::vector <std::string> logConsole;
 	void console();
+
+	void about();
 
 private:
 
 	bool settingsWindow = false;
+	bool consoleWindow = false;
+	bool aboutWindow = false;
 
-	int Height = 720, Width = 1080;
+	int Width = 1080;
+	int Height = 720;
 	bool fullscreen = false;
 	bool borderless = false;
 };
