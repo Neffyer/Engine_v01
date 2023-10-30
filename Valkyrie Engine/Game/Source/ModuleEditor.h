@@ -13,6 +13,8 @@
 #include "Externals/Glew/include/glew.h"
 #include "Externals/SDL/include/SDL_opengl.h"
 
+
+
 class ModuleEditor : public Module
 {
 public:
@@ -49,6 +51,13 @@ private:
 	bool settingsWindow = false;
 	bool consoleWindow = false;
 	bool aboutWindow = false;
+	
+	bool lighting = true;
+	bool cullFace = false;
+	bool alphaTest = false;
+	bool depthTest = false;
+	bool blend = false;
+	bool texture2d = false;
 
 	int Width = 1080;
 	int Height = 720;

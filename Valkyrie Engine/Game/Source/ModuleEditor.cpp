@@ -135,6 +135,10 @@ void ModuleEditor::menuBar() {
             }
             ImGui::EndMenu();
         }
+        if (ImGui::Button("Exit"))
+        {
+            App->input->quit = true;
+        }
         ImGui::EndMainMenuBar();
     }
 }
@@ -160,6 +164,77 @@ void ModuleEditor::settings()
                 App->window->screenSettings(Width, Height, fullscreen, borderless);
             }
         }
+        if (ImGui::CollapsingHeader("Renderer"))
+        {
+            ImGui::SeparatorText("Open GL");
+
+            if (ImGui::Checkbox("Lighting", &lighting))
+            {
+                if (lighting)
+                {
+                    glEnable(GL_LIGHTING);
+                }
+                else
+                {
+                    glDisable(GL_LIGHTING);
+                }
+            }
+            if (ImGui::Checkbox("Cull Facing", &cullFace))
+            {
+                if (cullFace)
+                {
+                    glEnable(GL_CULL_FACE);
+                }
+                else
+                {
+                    glDisable(GL_CULL_FACE);
+                }
+            }
+            if (ImGui::Checkbox("Alpha Test", &alphaTest))
+            {
+                if (alphaTest)
+                {
+                    glEnable(GL_ALPHA_TEST);
+                }
+                else
+                {
+                    glDisable(GL_ALPHA_TEST);
+                }
+            }
+            if (ImGui::Checkbox("Depth Test", &depthTest))
+            {
+                if (depthTest)
+                {
+                    glEnable(GL_DEPTH_TEST);
+                }
+                else
+                {
+                    glDisable(GL_DEPTH_TEST);
+                }
+            }
+            if (ImGui::Checkbox("Blend", &blend))
+            {
+                if (alphaTest)
+                {
+                    glEnable(GL_BLEND);
+                }
+                else
+                {
+                    glDisable(GL_BLEND);
+                }
+            }
+            if (ImGui::Checkbox("Texture 2D", &texture2d))
+            {
+                if (texture2d)
+                {
+                    glEnable(GL_TEXTURE_2D);
+                }
+                else
+                {
+                    glDisable(GL_TEXTURE_2D);
+                }
+            }
+        }
         ImGui::End();
     }
 }
@@ -180,20 +255,47 @@ void ModuleEditor::about()
 {
     ImGui::Begin("About", &aboutWindow, ImGuiWindowFlags_MenuBar);
     {
-        if (ImGui::CollapsingHeader("License"))
+        ImGui::SeparatorText("ABOUT VALKYRIE ENGINE:");
+        ImGui::Text("Valkyrie Engine v.0.1");
+        ImGui::Text("By Joel Maldonado Salvador");
+
+        /*ImGui::SeparatorText("OPEN GL:");
+        ImGui::Text("Vendor: %s", glGetString(GL_VENDOR));
+        ImGui::Text("Renderer: %s", glGetString(GL_RENDERER));
+        ImGui::Text("OpenGL version supported %s", glGetString(GL_VERSION));
+        ImGui::Text("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));*/
+
+        ImGui::NewLine();
+        ImGui::SeparatorText("LICENSE:");
+        
+        /*ImGui::Text("MIT LICENSE:");
+
+        ImGui::NewLine();
+
+        ImGui::Text("Copyright (c) 2012-2023 Scott Chacon and others");
+        ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining");
+        ImGui::Text("a copy of this software and associated documentation files (the '");
+        ImGui::Text("Software'), to deal in the Software without restriction, including");
+        ImGui::Text("without limitation the rights to use, copy, modify, merge, publish,");
+        ImGui::Text("distribute, sublicense, and/or sell copies of the Software, and to");
+        ImGui::Text("permit persons to whom the Software is furnished to do so, subject to");
+        ImGui::Text("the following conditions:");
+        ImGui::Text("The above copyright notice and this permission notice shall be");
+        ImGui::Text("included in all copies or substantial portions of the Software.");
+        ImGui::Text("THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,");
+        ImGui::Text("EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF");
+        ImGui::Text("MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND");
+        ImGui::Text("NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE");
+        ImGui::Text("LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION");
+        ImGui::Text("OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION");
+        ImGui::Text("WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");*/
+
+        ImGui::NewLine();
+        ImGui::SeparatorText("ABOUT ME:");
+        if (ImGui::MenuItem("Press here to visit the repository"))
         {
-            ImGui::SeparatorText("ABOUT VALKYRIE ENGINE:");
-            ImGui::Text("Valkyrie Engine v.0.1");
-            ImGui::Text("By Joel Maldonado Salvador");
-
-            ImGui::NewLine();
-            ImGui::SeparatorText("ABOUT ME:");
-
-            if (ImGui::MenuItem("Press here to visit our repository"))
-            {
-                ShellExecute(NULL, "open", "https://github.com/Neffyer/Valkyrie_Engine", 0, 0, SW_SHOWNORMAL);
-            }
-        }         
+            ShellExecute(NULL, "open", "https://github.com/Neffyer/Valkyrie_Engine", 0, 0, SW_SHOWNORMAL);
+        }
         ImGui::End();
     }
 }
