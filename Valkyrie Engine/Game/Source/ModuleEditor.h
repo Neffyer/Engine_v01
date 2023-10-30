@@ -41,6 +41,10 @@ public:
 
 	void settings();
 
+	void window();
+
+	void renderer();
+
 	std::vector <std::string> logConsole;
 	void console();
 

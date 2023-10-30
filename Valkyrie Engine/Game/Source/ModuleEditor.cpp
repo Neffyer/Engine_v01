@@ -108,14 +108,19 @@ void ModuleEditor::menuBar() {
     {
         if (ImGui::BeginMenu("File"))
         {
-            //if (ImGui::MenuItem("New scene")) { /* Ctrl + N */ }
+            //if (ImGui::MenuItem("New scene")) { /* Do stuff */ }
             //if (ImGui::MenuItem("Save scene")) { /* Do stuff */ }
             //if (ImGui::MenuItem("Load scene")) { /* Do stuff */ }
+
+            if (ImGui::MenuItem("Exit"))
+            {
+                App->input->quit = true;
+            }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Edit"))
         {
-            //if (ImGui::MenuItem("Name")) { /* Do stuff */ }
+            (ImGui::Text("Hola Mundo"));
             ImGui::EndMenu();
         }
 
@@ -135,10 +140,6 @@ void ModuleEditor::menuBar() {
             }
             ImGui::EndMenu();
         }
-        if (ImGui::Button("Exit"))
-        {
-            App->input->quit = true;
-        }
         ImGui::EndMainMenuBar();
     }
 }
@@ -149,93 +150,110 @@ void ModuleEditor::settings()
     {
         ImGui::PlotHistogram("FPS", &aFPSLog[0], aFPSLog.size(), 0, "", 0, 240, ImVec2(200, 30));
         ImGui::PlotHistogram("Delta Time", &aDtLog[0], aDtLog.size(), 0, "", 0, 0.01, ImVec2(200, 30));
-        if (ImGui::CollapsingHeader("Screen Settings"))
-        {
-            ImGui::SeparatorText("Window");
-            
-            ImGui::SliderInt("Width", &Width, 426, 1920);
-            ImGui::SliderInt("Height", &Height, 240, 1080);
 
-            ImGui::Checkbox("FullScreen", &fullscreen);
-            ImGui::Checkbox("Borderless", &borderless);
+        window();
 
-            if (ImGui::Button("Apply"))
-            {
-                App->window->screenSettings(Width, Height, fullscreen, borderless);
-            }
-        }
-        if (ImGui::CollapsingHeader("Renderer"))
-        {
-            ImGui::SeparatorText("Open GL");
+        renderer();
 
-            if (ImGui::Checkbox("Lighting", &lighting))
-            {
-                if (lighting)
-                {
-                    glEnable(GL_LIGHTING);
-                }
-                else
-                {
-                    glDisable(GL_LIGHTING);
-                }
-            }
-            if (ImGui::Checkbox("Cull Facing", &cullFace))
-            {
-                if (cullFace)
-                {
-                    glEnable(GL_CULL_FACE);
-                }
-                else
-                {
-                    glDisable(GL_CULL_FACE);
-                }
-            }
-            if (ImGui::Checkbox("Alpha Test", &alphaTest))
-            {
-                if (alphaTest)
-                {
-                    glEnable(GL_ALPHA_TEST);
-                }
-                else
-                {
-                    glDisable(GL_ALPHA_TEST);
-                }
-            }
-            if (ImGui::Checkbox("Depth Test", &depthTest))
-            {
-                if (depthTest)
-                {
-                    glEnable(GL_DEPTH_TEST);
-                }
-                else
-                {
-                    glDisable(GL_DEPTH_TEST);
-                }
-            }
-            if (ImGui::Checkbox("Blend", &blend))
-            {
-                if (alphaTest)
-                {
-                    glEnable(GL_BLEND);
-                }
-                else
-                {
-                    glDisable(GL_BLEND);
-                }
-            }
-            if (ImGui::Checkbox("Texture 2D", &texture2d))
-            {
-                if (texture2d)
-                {
-                    glEnable(GL_TEXTURE_2D);
-                }
-                else
-                {
-                    glDisable(GL_TEXTURE_2D);
-                }
-            }
-        }
         ImGui::End();
+    }
+}
+
+void ModuleEditor::window()
+{
+    if (ImGui::CollapsingHeader("Screen Settings"))
+    {
+        ImGui::SeparatorText("Window");
+
+        ImGui::SliderInt("Width", &Width, 426, 1920);
+        ImGui::SliderInt("Height", &Height, 240, 1080);
+
+        ImGui::Checkbox("FullScreen", &fullscreen);
+        ImGui::Checkbox("Borderless", &borderless);
+
+        if (ImGui::Button("Apply"))
+        {
+            App->window->screenSettings(Width, Height, fullscreen, borderless);
+        }
+
+        ImGui::SeparatorText("");
+    }
+}
+
+void ModuleEditor::renderer()
+{
+    if (ImGui::CollapsingHeader("Renderer"))
+    {
+        ImGui::SeparatorText("Open GL");
+
+        if (ImGui::Checkbox("Lighting", &lighting))
+        {
+            if (lighting)
+            {
+                glEnable(GL_LIGHTING);
+            }
+            else
+            {
+                glDisable(GL_LIGHTING);
+            }
+        }
+        if (ImGui::Checkbox("Cull Facing", &cullFace))
+        {
+            if (cullFace)
+            {
+                glEnable(GL_CULL_FACE);
+            }
+            else
+            {
+                glDisable(GL_CULL_FACE);
+            }
+        }
+        if (ImGui::Checkbox("Alpha Test", &alphaTest))
+        {
+            if (alphaTest)
+            {
+                glEnable(GL_ALPHA_TEST);
+            }
+            else
+            {
+                glDisable(GL_ALPHA_TEST);
+            }
+        }
+        if (ImGui::Checkbox("Depth Test", &depthTest))
+        {
+            if (depthTest)
+            {
+                glEnable(GL_DEPTH_TEST);
+            }
+            else
+            {
+                glDisable(GL_DEPTH_TEST);
+            }
+        }
+        if (ImGui::Checkbox("Blend", &blend))
+        {
+            if (alphaTest)
+            {
+                glEnable(GL_BLEND);
+            }
+            else
+            {
+                glDisable(GL_BLEND);
+            }
+        }
+        if (ImGui::Checkbox("Texture 2D", &texture2d))
+        {
+            if (texture2d)
+            {
+                glEnable(GL_TEXTURE_2D);
+            }
+            else
+            {
+                glDisable(GL_TEXTURE_2D);
+            }
+        }
+
+        ImGui::SeparatorText("");
     }
 }
 
