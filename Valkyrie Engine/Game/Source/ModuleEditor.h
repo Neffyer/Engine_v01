@@ -55,7 +55,7 @@ public:
 
 private:
 
-	bool settingsWindow = false;
+	bool settingsWindow = true;
 	bool consoleWindow = true;
 	bool aboutWindow = false;
 	

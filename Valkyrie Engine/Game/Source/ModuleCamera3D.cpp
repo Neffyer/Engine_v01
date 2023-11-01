@@ -116,6 +116,32 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference = Position;
 	}
 
+	//FRONT VIEW
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+
+		Reference = float3(0.0f, 0.0f, 0.0f);
+
+		Position.Set(0.0f, 0.0f, 10.0f);
+		LookAt(Reference);
+	}
+	
+	//TOP VIEW
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+
+		Reference = float3(0.0f, 0.0f, 0.0f);
+
+		Position.Set(0.0f, 10.0f, 0.0f);
+		LookAt(Reference);
+	}
+	
+	//RIGHT VIEW
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+
+		Reference = float3(0.0f, 0.0f, 0.0f);
+
+		Position.Set(10.0f, 0.0f, 0.0f);
+		LookAt(Reference);
+	}
 
 	//Zoom in & zoom out
 	if (App->input->GetMouseZ() != 0)

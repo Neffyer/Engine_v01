@@ -278,7 +278,7 @@ void ModuleEditor::console()
 
 void ModuleEditor::about()
 {
-    ImGui::Begin("About", &aboutWindow, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("About", &aboutWindow, ImGuiWindowFlags_DockNodeHost);
     {
         ImGui::SeparatorText("VALKYRIE ENGINE");
         ImGui::Text("Valkyrie Engine v.0.1");
