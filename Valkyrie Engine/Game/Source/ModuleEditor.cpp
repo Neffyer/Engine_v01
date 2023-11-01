@@ -3,6 +3,11 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "../Source/Externals/ImGui/imgui.h"
+#include "../Source/Externals/ImGui/backends/imgui_impl_opengl3.h"
+#include "../Source/Externals/ImGui/backends/imgui_impl_sdl2.h"
+#include "Externals/SDL/include/SDL.h"
+#include "Externals/MathGeoLib/include/MathGeoLib.h"
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -42,6 +47,10 @@ bool ModuleEditor::Init()
     aFPSLog.reserve(30);
     aDtLog.reserve(30);
 
+    cpu = SDL_GetCPUCount();
+    cacheCpu = SDL_GetCPUCacheLineSize();
+    ram = SDL_GetSystemRAM();
+
     return true;
 }
 
@@ -53,6 +62,8 @@ void ModuleEditor::Draw()
     ImGui::NewFrame();
 
     // -----------------------------------------------------------------------------------------------------------
+
+    ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
     aFPS = App->framesPerSecond();
     updateFPS(aFPS);
@@ -108,10 +119,6 @@ void ModuleEditor::menuBar() {
     {
         if (ImGui::BeginMenu("File"))
         {
-            //if (ImGui::MenuItem("New scene")) { /* Do stuff */ }
-            //if (ImGui::MenuItem("Save scene")) { /* Do stuff */ }
-            //if (ImGui::MenuItem("Load scene")) { /* Do stuff */ }
-
             if (ImGui::MenuItem("Exit"))
             {
                 App->input->quit = true;
@@ -146,7 +153,7 @@ void ModuleEditor::menuBar() {
 
 void ModuleEditor::settings()
 {
-    ImGui::Begin("Settings", &settingsWindow, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("Settings", &settingsWindow, ImGuiWindowFlags_DockNodeHost);
     {
         ImGui::PlotHistogram("FPS", &aFPSLog[0], aFPSLog.size(), 0, "", 0, 240, ImVec2(200, 30));
         ImGui::PlotHistogram("Delta Time", &aDtLog[0], aDtLog.size(), 0, "", 0, 0.01, ImVec2(200, 30));
@@ -259,7 +266,7 @@ void ModuleEditor::renderer()
 
 void ModuleEditor::console() 
 {
-    ImGui::Begin("Console", &consoleWindow, ImGuiWindowFlags_MenuBar);
+    ImGui::Begin("Console", &consoleWindow, ImGuiWindowFlags_DockNodeHost);
     {
         for (int i = 0; i < logConsole.size(); i++)
         {
@@ -273,20 +280,18 @@ void ModuleEditor::about()
 {
     ImGui::Begin("About", &aboutWindow, ImGuiWindowFlags_MenuBar);
     {
-        ImGui::SeparatorText("ABOUT VALKYRIE ENGINE:");
+        ImGui::SeparatorText("VALKYRIE ENGINE");
         ImGui::Text("Valkyrie Engine v.0.1");
         ImGui::Text("By Joel Maldonado Salvador");
-
-        /*ImGui::SeparatorText("OPEN GL:");
-        ImGui::Text("Vendor: %s", glGetString(GL_VENDOR));
-        ImGui::Text("Renderer: %s", glGetString(GL_RENDERER));
-        ImGui::Text("OpenGL version supported %s", glGetString(GL_VERSION));
-        ImGui::Text("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));*/
+        if (ImGui::MenuItem("Press here to visit the repository"))
+        {
+            ShellExecute(NULL, "open", "https://github.com/Neffyer/Valkyrie_Engine", 0, 0, SW_SHOWNORMAL);
+        }
 
         ImGui::NewLine();
-        ImGui::SeparatorText("LICENSE:");
-        
-        /*ImGui::Text("MIT LICENSE:");
+        ImGui::SeparatorText("LICENSE");
+
+        ImGui::Text("MIT LICENSE");
 
         ImGui::NewLine();
 
@@ -306,14 +311,23 @@ void ModuleEditor::about()
         ImGui::Text("NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE");
         ImGui::Text("LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION");
         ImGui::Text("OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION");
-        ImGui::Text("WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");*/
+        ImGui::Text("WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.");
 
         ImGui::NewLine();
-        ImGui::SeparatorText("ABOUT ME:");
-        if (ImGui::MenuItem("Press here to visit the repository"))
-        {
-            ShellExecute(NULL, "open", "https://github.com/Neffyer/Valkyrie_Engine", 0, 0, SW_SHOWNORMAL);
-        }
+        ImGui::SeparatorText("");
+        ImGui::Text("Vendor: %s", glGetString(GL_VENDOR));
+        ImGui::Text("Renderer: %s", glGetString(GL_RENDERER));
+        ImGui::Text("CPUs: %i (Cache: %ikb)", cpu, cacheCpu);
+        ImGui::Text("System RAM: %iMb", ram);
+        ImGui::Text("OpenGL version supported %s", glGetString(GL_VERSION));
+        ImGui::Text("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+        SDL_version version;
+        SDL_GetVersion(&version);
+        ImGui::Text("Using SDL %i.%i.%i", version.major, version.minor, version.patch);
+        ImGui::Text("Using Glew %s", glewGetString(GLEW_VERSION));
+        const char* version_gui = ImGui::GetVersion();
+        ImGui::Text("Using ImGui %s", version_gui);
+        
         ImGui::End();
     }
 }

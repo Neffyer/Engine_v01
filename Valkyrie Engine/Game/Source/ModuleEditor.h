@@ -28,12 +28,15 @@ public:
 
 	std::vector<float> aFPSLog;
 	float aFPS;
-
 	void updateFPS(const float aFPS);
 
 	std::vector <float> aDtLog;
 	float aDt;
 	void updateDT(const float aDt);
+
+	int cpu;
+	int cacheCpu;
+	int ram;
 
 	bool UpdateAditionalWindows = false;
 	
@@ -53,7 +56,7 @@ public:
 private:
 
 	bool settingsWindow = false;
-	bool consoleWindow = false;
+	bool consoleWindow = true;
 	bool aboutWindow = false;
 	
 	bool lighting = true;
