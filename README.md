@@ -4,8 +4,9 @@
 
 A 3D Game Engine under CITM development
 
-### Repository Link: Github: [Valkyrie Engine](https://github.com/Neffyer/Valkyrie_Engine).
-This site was built using [GitHub Pages](https://pages.github.com/).
+### Repository Link
+
+Github: [Valkyrie Engine](https://github.com/Neffyer/Valkyrie_Engine).
 
 ## Key Features
 
@@ -24,7 +25,7 @@ This site was built using [GitHub Pages](https://pages.github.com/).
 
 ## Developer
 
- - Joel Maldonado Salvador - https://github.com/neffyer
+ - [Joel Maldonado Salvador](https://github.com/neffyer)
 
 ## License
 
