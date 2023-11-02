@@ -2,7 +2,7 @@
 
 ## Description
 
-A 3D Game Engine under CITM development
+A "3D Game Engine" under CITM development
 
 ### Repository Link
 
@@ -21,7 +21,6 @@ Github: [Valkyrie Engine](https://github.com/Neffyer/Valkyrie_Engine).
  - Alt + Left click --> orbits the object.
  - Pressing “F” --> focus the camera around the geometry.
  - Holding SHIFT --> camera movement speeds up.
-
 
 ## Developer
 
